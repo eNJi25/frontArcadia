@@ -1,3 +1,5 @@
+/* DEBUT Régles génerales */
+
 .bg-primary {
   background-color: var(--primary) !important;
 }
@@ -7,13 +9,71 @@
 }
 
 .text-color {
-  color: #f5f5dc;
+  color: var(--success);
 }
 
-h1, h2, h3, h4 {
-    font-family: "Raleway", Arial, serif;
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Raleway", Arial, serif;
 }
 
-p, a {
-    font-family: "Nunito", Arial, sans-serif;
+p,
+a {
+  font-family: "Nunito", Arial, sans-serif;
 }
+
+a {
+  text-decoration: none;
+  color: var(--success);
+}
+
+a:hover {
+  color: #e1e1ca;
+}
+
+/* FIN Régles Générales */
+
+/* DEBUT Header */
+
+.nav-link {
+  --bs-nav-link-color: var(--success);
+  --bs-nav-link-hover-color: #e1e1ca;
+}
+
+.navbar-brand {
+  --bs-navbar-brand-color: var(--success);
+  --bs-navbar-brand-hover-color: #e1e1ca;
+  font-family: "Pacifico", Arial, Helvetica, sans-serif;
+}
+
+.navbar-toggler {
+  background-color: var(--primary);
+  border-color: var(--success);
+}
+
+.navbar-toggler svg {
+  fill: var(--success);
+}
+
+/* FIN Header */
+
+/* DEBUT Footer */
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+main {
+  margin-bottom: 250px;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+/* FIN Footer */

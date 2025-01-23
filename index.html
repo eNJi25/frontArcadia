@@ -27,14 +27,15 @@
 </head>
 
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg bg-primary">
+    <header class="bg-primary">
+        <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
                 <a class="navbar-brand" href="/">ARCADIA</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="24" height="24" fill="var(--success)">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="24" height="24"
+                        fill="var(--success)">
                         <path d="M4 7h22M4 15h22M4 23h22" stroke="var(--success)" stroke-width="2" />
                     </svg>
                 </button>
@@ -66,7 +67,30 @@
     </main>
 
     <footer>
-
+        <div class="row bg-primary">
+            <div class="col-12 d-flex flex-column align-items-center text-color">
+                <p class="m-2">Nos horaires</p>
+                <p class="m-2">Du mardi au Dimanche</p>
+                <p class="m-2">09:00 - 19:00</p>
+            </div>
+            <div class="col-6 d-flex flex-column align-items-center">
+                <p><a href="#">Nous contacter</a></p>
+                <p><a href="#">Mentions légales</a></p>
+            </div>
+            <div class="col-6 d-flex flex-column align-items-center">
+                <p>
+                    <a href="#">Nous suivre</a>
+                </p>
+                <p>
+                    <a href="#"><i class="bi bi-instagram"></i></a>
+                    <a href=""><i class="bi bi-twitter"></i></a>
+                    <a href=""><i class="bi bi-facebook"></i></a>
+                </p>
+            </div>
+            <div class="col-12 d-flex flex-column align-items-center text-color">
+                <p class="m-2">© Arcadia 2025 - Tout droits réservés</p>
+            </div>
+        </div>
     </footer>
     <script type="module" src="Router/router.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
