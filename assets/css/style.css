@@ -77,3 +77,34 @@ footer {
 }
 
 /* FIN Footer */
+
+/* DEBUT Page d'accueil */
+
+.home-hero-scene {
+  position: relative;
+}
+
+.img-home-hero {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+}
+
+.home-hero-scene-content {
+  height: 100vh;
+}
+
+.home-hero-content {
+  position: absolute;
+  top: 15%;
+  left: 10%;
+}
+
+@media screen and (max-width: 480px) {
+  .home-hero-content {
+    font-size: 13px;
+  }
+}
+
+/* FIN Page d'accueil */
