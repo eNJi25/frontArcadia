@@ -33,6 +33,13 @@ a:hover {
   color: #e1e1ca;
 }
 
+@media screen and (max-width: 480px) {
+  p,
+  h1 {
+    font-size: 13px;
+  }
+}
+
 /* FIN Régles Générales */
 
 /* DEBUT Header */
@@ -59,29 +66,18 @@ a:hover {
 
 /* FIN Header */
 
-/* DEBUT Footer */
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
-main {
-  margin-bottom: 250px;
-}
-
-footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-}
-
-/* FIN Footer */
-
 /* DEBUT Page d'accueil */
 
 .home-hero-scene {
   position: relative;
+  height: 100vh;
+}
+
+@media screen and (max-width: 480px) {
+  .home-hero-scene {
+    position: relative;
+    height: 250px;
+  }
 }
 
 .img-home-hero {
@@ -89,22 +85,14 @@ footer {
   z-index: -1;
   top: 0;
   left: 0;
-}
-
-.home-hero-scene-content {
-  height: 100vh;
+  height: 100%;
+  width: 100%;
 }
 
 .home-hero-content {
   position: absolute;
   top: 15%;
   left: 10%;
-}
-
-@media screen and (max-width: 480px) {
-  .home-hero-content {
-    font-size: 13px;
-  }
 }
 
 /* FIN Page d'accueil */
