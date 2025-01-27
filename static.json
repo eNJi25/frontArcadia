@@ -1,7 +1,4 @@
 {
-  "root": "/",
-  "clean_urls": true,
-  "routes": {
-    "/:slug": "index.html"
-  }
+  "root": ".",
+  "clean_urls": true
 }
