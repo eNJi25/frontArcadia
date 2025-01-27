@@ -1,22 +1,22 @@
-const habitatsContainer = document.getElementById("habitats");
-
-
 function toUpperCase(text) {
   return text.toUpperCase();
 }
 
-fetch("https://arcadia2024.alwaysdata.net/arcadia/api/habitat/showAll") // URL de l'API
+// DEBUT Présentation Habitats
+
+const habitatsContainer = document.getElementById("habitats");
+
+fetch("https://arcadia2024.alwaysdata.net/arcadia/api/habitat/showAll")
   .then((response) => {
     if (!response.ok) {
-      throw new Error(`Erreur HTTP : ${response.status}`); // Vérifie si la réponse est correcte
+      throw new Error(`Erreur HTTP : ${response.status}`);
     }
-    return response.json(); // Transforme la réponse en JSON
+    return response.json();
   })
   .then((data) => {
-    // Pour chaque habitat récupéré, on génère une carte HTML
     data.forEach((habitat) => {
       const habitatCard = document.createElement("div");
-      habitatCard.className = "col-12 col-md-4 mb-4"; // Colonne Bootstrap
+      habitatCard.className = "col-12 col-md-4 mb-4";
 
       habitatCard.innerHTML = `
         <div class="card position-relative">
@@ -32,11 +32,52 @@ fetch("https://arcadia2024.alwaysdata.net/arcadia/api/habitat/showAll") // URL d
         </div>
       `;
 
-      // Ajoute la carte générée au conteneur
       habitatsContainer.appendChild(habitatCard);
     });
   })
   .catch((error) => {
-    console.error("Une erreur est survenue :", error); // Gère les erreurs
+    console.error("Une erreur est survenue :", error);
     habitatsContainer.innerHTML = `<p class="text-danger text-center">Impossible de charger les habitats. Veuillez réessayer plus tard.</p>`;
   });
+
+// FIN Présentation Habitats
+
+// DEBUT Carousel Services
+
+const servicesContainer = document.getElementById("services");
+
+fetch("https://arcadia2024.alwaysdata.net/arcadia/api/service/showAll")
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error(`Erreur HTTP : ${response.status}`);
+    }
+    return response.json();
+  })
+  .then((data) => {
+    data.forEach((service, index) => {
+      const serviceItem = document.createElement("div");
+      serviceItem.classList.add("carousel-item");
+
+      if (index === 0) {
+        serviceItem.classList.add("active");
+      }
+
+      serviceItem.innerHTML = `
+        <img src="${service.imageName}" class="d-block w-100" alt="${
+        service.nom
+      }">
+        <div class="carousel-caption position-absolute bottom-0 start-0 w-100 d-flex justify-content-between align-items-center p-3">
+            <h3 class="text-titre ms-3">${service.nom}</h3>
+            <a href="#" class="btn btn-secondary me-3">En savoir plus</a>
+        </div>
+      `;
+
+      servicesContainer.appendChild(serviceItem);
+    });
+  })
+  .catch((error) => {
+    console.error("Une erreur est survenue :", error);
+    servicesContainer.innerHTML = `<p class="text-danger text-center">Impossible de charger les services. Veuillez réessayer plus tard.</p>`;
+  });
+
+// FIN Carousel Services
