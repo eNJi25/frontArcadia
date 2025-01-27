@@ -38,10 +38,16 @@ a:hover {
 }
 
 @media screen and (max-width: 480px) {
+  a.btn {
+    font-size: 12px;
+    padding: 8px 15px;
+  }
+}
+
+@media screen and (max-width: 480px) {
   p,
   h1,
-  h3,
-  a {
+  h3 {
     font-size: 14px;
   }
 }

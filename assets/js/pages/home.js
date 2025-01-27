@@ -66,7 +66,7 @@ fetch("https://arcadia2024.alwaysdata.net/arcadia/api/service/showAll")
         <img src="${service.imageName}" class="d-block w-100" alt="${
         service.nom
       }">
-        <div class="carousel-caption position-absolute bottom-0 start-0 w-100 d-flex justify-content-between align-items-center p-3">
+        <div class="carousel-caption position-absolute bottom-0 start-0 w-100 d-flex justify-content-between align-items-center p-4">
             <h3 class="text-titre ms-3">${service.nom}</h3>
             <a href="#" class="btn btn-secondary me-3">En savoir plus</a>
         </div>
