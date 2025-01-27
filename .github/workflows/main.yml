@@ -22,4 +22,5 @@ jobs:
           **/node_modules/bootstrap-icons/icons/**  
         server-dir: /www/
         protocol: ftps
-        timeout: 300
+        port: 990  # Ajoute un port explicite si nécessaire
+        timeout: 300  # Augmenter le timeout à 300 secondes
