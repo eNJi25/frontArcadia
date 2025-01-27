@@ -180,11 +180,15 @@ async function submitAvis() {
       if (!response.ok) {
         throw new Error(`Erreur HTTP : ${response.status}`);
       }
-
-      const data = await response.json();
+      return response.json();
+    })
+    .then((data) => {
+      
       alert("Avis envoyé avec succès !");
+      
       pseudoInput.value = "";
       commentaireInput.value = "";
+      
       const modal = bootstrap.Modal.getInstance(
         document.getElementById("SoumissionAvisModal")
       );
