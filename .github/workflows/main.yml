@@ -22,3 +22,4 @@ jobs:
           **/node_modules/bootstrap-icons/icons/**  
         server-dir: /www/
         protocol: ftps
+        timeout: 300
