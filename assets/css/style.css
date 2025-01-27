@@ -1,5 +1,11 @@
 /* DEBUT Régles génerales */
 
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .bg-primary {
   background-color: var(--primary) !important;
 }
@@ -146,6 +152,27 @@ a:hover {
   .animal-card {
     height: 350px;
     object-fit: cover;
+  }
+}
+
+/* Style des avis */
+
+.avis-item {
+  min-height: 300px;
+}
+
+.avis-submit {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media screen and (min-width: 780px) {
+  .avis-submit{
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
   }
 }
 

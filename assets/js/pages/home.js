@@ -122,3 +122,50 @@ fetch("https://arcadia2024.alwaysdata.net/arcadia/api/animal/showAnimalsHome")
   });
 
 // FIN Présentation Animaux
+
+// DEBUT Présentation Avis
+
+const avisContainer = document.getElementById("avis");
+
+fetch("https://arcadia2024.alwaysdata.net/arcadia/api/avis/valides")
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error(`Erreur HTTP : ${response.status}`);
+    }
+    return response.json(); // Transforme la réponse en JSON
+  })
+  .then((data) => {
+    if (data.length === 0) {
+      avisContainer.innerHTML = "<p>Aucun avis disponible pour le moment.</p>";
+      return;
+    }
+
+    data.forEach((avis) => {
+      const avisElement = document.createElement("div");
+      avisElement.className = "col-12 col-md-3 mb-4"; // Chaque avis prend 1/4 de la largeur
+
+      const dateAvis = new Date(avis.createdAt); // Remplacez 'avis.date' par la propriété correcte de votre API
+      const dateFormattee = dateAvis.toLocaleDateString("fr-FR", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+      });
+      avisElement.innerHTML = `
+        <div class="avis-item p-4 border rounded h-100 bg-success d-flex flex-column justify-content-between align-items-center">
+          <h4 class="text-titre">${avis.pseudo}</h4>
+          <p class="avis-commentaire">${avis.commentaire}</p>
+          <p class="avis-date">${dateFormattee}</>
+        </div>
+      `;
+
+      avisContainer.appendChild(avisElement);
+    });
+  })
+  .catch((error) => {
+    console.error("Une erreur est survenue :", error);
+    avisContainer.innerHTML = `
+      <p class="text-danger">Impossible de charger les avis. Veuillez réessayer plus tard.</p>
+    `;
+  });
+
+// FIN Présentation Avis
