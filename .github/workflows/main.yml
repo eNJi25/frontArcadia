@@ -3,30 +3,23 @@ name: 🚀 Deploy website on push
 on:
   push:
     branches:
-      - main # Déploiement uniquement lors d'un push sur la branche main
+      - main  # Déclencher uniquement sur les pushs vers la branche main
 
 jobs:
-  web-deploy:
-    name: 🎉 Deploy
+  deploy:
+    name: 🎉 Deploy to FTP
     runs-on: ubuntu-latest
 
     steps:
-      - name: 🚚 Get latest code
-        uses: actions/checkout@v3
+    - name: 🚚 Checkout code
+      uses: actions/checkout@v3
 
-      - name: 📂 Sync files with FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-        with:
-          server: ftp-arcadia2025.alwaysdata.net # Hôte FTP
-          username: arcadia2025 # Votre nom d'utilisateur FTP
-          password: ${{ secrets.ftp_password }} # Utilisation de la clé secrète définie dans les settings
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/node_modules/bootstrap/scss/**
-            **/node_modules/bootstrap/js/**
-            **/node_modules/bootstrap-icons/icons/**
-          server-dir: /www/ # Répertoire cible sur le serveur FTP
-          protocol: ftps # Utilisation de FTPS
-          port: 990 # Port explicite pour FTPS
-          timeout: 300 # Timeout augmenté à 300 secondes pour éviter les délais d'attente longs
+    - name: 🔑 Setup FTP deployment
+      uses: sebastianpopp/ftp-action@v2.0.0
+      with:
+        host: ${{ secrets.FTP_HOST }}             # Hôte FTP (défini comme secret)
+        user: ${{ secrets.FTP_USER }}             # Utilisateur FTP (défini comme secret)
+        password: ${{ secrets.FTP_PASSWORD }}     # Mot de passe FTP (défini comme secret)
+        forceSsl: true                            # Forcer SSL (FTPS) pour sécuriser la connexion
+        localDir: ./                              # Répertoire local (racine du projet)
+        remoteDir: /www/                          # Répertoire distant sur le serveur AlwaysData
