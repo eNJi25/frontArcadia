@@ -107,18 +107,46 @@ a:hover {
   left: 10%;
 }
 
+/* Style des cards pour les habitats */
+
+.habitat-card {
+  width: 100%;
+  height: 200px;
+}
+
+@media (min-width: 780px) {
+  .habitat-card {
+    height: 350px;
+    object-fit: cover;
+  }
+}
+
+/* Style du carousel */
+
 .carousel-item img {
   width: 100%;
   height: 250px;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 780px) {
   .carousel-item img {
-    height: 450px;
+    height: 500px;
     object-fit: cover;
   }
 }
 
+/* Style des cards pour les  animaux  */
 
+.animal-card {
+  width: 100%;
+  height: 200px;
+}
+
+@media (min-width: 780px) {
+  .animal-card {
+    height: 350px;
+    object-fit: cover;
+  }
+}
 
 /* FIN Page d'accueil */
