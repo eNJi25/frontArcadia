@@ -2,22 +2,31 @@ function toUpperCase(text) {
   return text.toUpperCase();
 }
 
-// DEBUT Présentation Habitats
-
-const habitatsContainer = document.getElementById("habitats");
-
-fetch("https://arcadia2024.alwaysdata.net/arcadia/api/habitat/showAll")
-  .then((response) => {
+// Fonction pour récupérer les données avec fetch et gérer les erreurs
+async function fetchData(url) {
+  try {
+    const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`Erreur HTTP : ${response.status}`);
     }
-    return response.json();
-  })
-  .then((data) => {
+    return await response.json();
+  } catch (error) {
+    console.error("Une erreur est survenue :", error);
+    return null;
+  }
+}
+
+// Fonction pour afficher les habitats
+async function displayHabitats() {
+  const habitatsContainer = document.getElementById("habitats");
+  const data = await fetchData(
+    "https://arcadia2024.alwaysdata.net/arcadia/api/habitat/showAll"
+  );
+
+  if (data) {
     data.forEach((habitat) => {
       const habitatCard = document.createElement("div");
       habitatCard.className = "col-12 col-md-4 mb-3";
-
       habitatCard.innerHTML = `
         <div class="card position-relative">
           <img src="${habitat.imageName}" class="img-fluid habitat-card" alt="${
@@ -31,29 +40,21 @@ fetch("https://arcadia2024.alwaysdata.net/arcadia/api/habitat/showAll")
           </div>
         </div>
       `;
-
       habitatsContainer.appendChild(habitatCard);
     });
-  })
-  .catch((error) => {
-    console.error("Une erreur est survenue :", error);
+  } else {
     habitatsContainer.innerHTML = `<p class="text-danger text-center">Impossible de charger les habitats. Veuillez réessayer plus tard.</p>`;
-  });
+  }
+}
 
-// FIN Présentation Habitats
+// Fonction pour afficher les services dans le carousel
+async function displayServices() {
+  const servicesContainer = document.getElementById("services");
+  const data = await fetchData(
+    "https://arcadia2024.alwaysdata.net/arcadia/api/service/showAll"
+  );
 
-// DEBUT Carousel Services
-
-const servicesContainer = document.getElementById("services");
-
-fetch("https://arcadia2024.alwaysdata.net/arcadia/api/service/showAll")
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error(`Erreur HTTP : ${response.status}`);
-    }
-    return response.json();
-  })
-  .then((data) => {
+  if (data) {
     data.forEach((service, index) => {
       const serviceItem = document.createElement("div");
       serviceItem.classList.add("carousel-item");
@@ -69,34 +70,25 @@ fetch("https://arcadia2024.alwaysdata.net/arcadia/api/service/showAll")
             <a href="#" class="btn btn-secondary me-3">En savoir plus</a>
         </div>
       `;
-
       servicesContainer.appendChild(serviceItem);
     });
-  })
-  .catch((error) => {
-    console.error("Une erreur est survenue :", error);
+  } else {
     servicesContainer.innerHTML = `<p class="text-danger text-center">Impossible de charger les services. Veuillez réessayer plus tard.</p>`;
-  });
+  }
+}
 
-// FIN Carousel Services
+// Fonction pour afficher les animaux
+async function displayAnimals() {
+  const animauxContainer = document.getElementById("animaux");
+  const data = await fetchData(
+    "https://arcadia2024.alwaysdata.net/arcadia/api/animal/showAnimalsHome"
+  );
 
-// DEBUT Présentation Animaux
-
-const animauxContainer = document.getElementById("animaux");
-
-fetch("https://arcadia2024.alwaysdata.net/arcadia/api/animal/showAnimalsHome")
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error(`Erreur HTTP : ${response.status}`);
-    }
-    return response.json();
-  })
-  .then((data) => {
+  if (data) {
     data.forEach((item) => {
       const animal = item.animal;
       const animalCard = document.createElement("div");
       animalCard.className = "col-12 col-md-4 mb-3";
-
       animalCard.innerHTML = `
         <div class="card position-relative">
           <img src="${animal.imageSlug}" class="img-fluid animal-card" alt="${
@@ -110,29 +102,21 @@ fetch("https://arcadia2024.alwaysdata.net/arcadia/api/animal/showAnimalsHome")
           </div>
         </div>
       `;
-
       animauxContainer.appendChild(animalCard);
     });
-  })
-  .catch((error) => {
-    console.error("Une erreur est survenue :", error);
+  } else {
     animauxContainer.innerHTML = `<p class="text-danger text-center">Impossible de charger les animaux. Veuillez réessayer plus tard.</p>`;
-  });
+  }
+}
 
-// FIN Présentation Animaux
+// Fonction pour afficher les avis
+async function displayAvis() {
+  const avisContainer = document.getElementById("avis");
+  const data = await fetchData(
+    "https://arcadia2024.alwaysdata.net/arcadia/api/avis/valides"
+  );
 
-// DEBUT Présentation Avis
-
-const avisContainer = document.getElementById("avis");
-
-fetch("https://arcadia2024.alwaysdata.net/arcadia/api/avis/valides")
-  .then((response) => {
-    if (!response.ok) {
-      throw new Error(`Erreur HTTP : ${response.status}`);
-    }
-    return response.json(); // Transforme la réponse en JSON
-  })
-  .then((data) => {
+  if (data) {
     if (data.length === 0) {
       avisContainer.innerHTML = "<p>Aucun avis disponible pour le moment.</p>";
       return;
@@ -140,9 +124,8 @@ fetch("https://arcadia2024.alwaysdata.net/arcadia/api/avis/valides")
 
     data.forEach((avis) => {
       const avisElement = document.createElement("div");
-      avisElement.className = "col-12 col-md-3 mb-4"; // Chaque avis prend 1/4 de la largeur
-
-      const dateAvis = new Date(avis.createdAt); // Remplacez 'avis.date' par la propriété correcte de votre API
+      avisElement.className = "col-12 col-md-3 mb-4";
+      const dateAvis = new Date(avis.createdAt);
       const dateFormattee = dateAvis.toLocaleDateString("fr-FR", {
         day: "2-digit",
         month: "2-digit",
@@ -152,69 +135,70 @@ fetch("https://arcadia2024.alwaysdata.net/arcadia/api/avis/valides")
         <div class="avis-item p-4 border rounded h-100 bg-success d-flex flex-column justify-content-between align-items-center">
           <h4 class="text-titre">${avis.pseudo}</h4>
           <p class="avis-commentaire">${avis.commentaire}</p>
-          <p class="avis-date">${dateFormattee}</>
+          <p class="avis-date">${dateFormattee}</p>
         </div>
       `;
-
       avisContainer.appendChild(avisElement);
     });
-  })
-  .catch((error) => {
-    console.error("Une erreur est survenue :", error);
-    avisContainer.innerHTML = `
-      <p class="text-danger">Impossible de charger les avis. Veuillez réessayer plus tard.</p>
-    `;
-  });
-
-// FIN Présentation Avis
-
-// Soumission d'un avis
-
-const pseudoInput = document.getElementById("pseudoAvisInput");
-const commentaireInput = document.getElementById("CommentaireAvisInput");
-const submitButton = document.getElementById("avis-submit");
-
-submitButton.addEventListener("click", () => {
-  const pseudo = pseudoInput.value.trim();
-  const commentaire = commentaireInput.value.trim();
-
-  if (!pseudo || !commentaire) {
-    alert("Veuillez remplir tous les champs !");
-    return;
+  } else {
+    avisContainer.innerHTML = `<p class="text-danger">Impossible de charger les avis. Veuillez réessayer plus tard.</p>`;
   }
+}
 
-  const avisData = {
-    pseudo: pseudo,
-    commentaire: commentaire,
-  };
+// Fonction pour soumettre un avis
+async function submitAvis() {
+  const pseudoInput = document.getElementById("pseudoAvisInput");
+  const commentaireInput = document.getElementById("CommentaireAvisInput");
+  const submitButton = document.getElementById("avis-submit");
 
-  fetch("https://arcadia2024.alwaysdata.net/arcadia/api/avis/new", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(avisData),
-  })
-    .then((response) => {
+  submitButton.addEventListener("click", async () => {
+    const pseudo = pseudoInput.value.trim();
+    const commentaire = commentaireInput.value.trim();
+
+    if (!pseudo || !commentaire) {
+      alert("Veuillez remplir tous les champs !");
+      return;
+    }
+
+    const avisData = {
+      pseudo: pseudo,
+      commentaire: commentaire,
+    };
+
+    try {
+      const response = await fetch(
+        "https://arcadia2024.alwaysdata.net/arcadia/api/avis/new",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(avisData),
+        }
+      );
+
       if (!response.ok) {
         throw new Error(`Erreur HTTP : ${response.status}`);
       }
-      return response.json();
-    })
-    .then((data) => {
-      
+
+      const data = await response.json();
       alert("Avis envoyé avec succès !");
-      
       pseudoInput.value = "";
       commentaireInput.value = "";
-      
       const modal = bootstrap.Modal.getInstance(
         document.getElementById("SoumissionAvisModal")
       );
       modal.hide();
-    })
-    .catch((error) => {
+    } catch (error) {
       console.error("Erreur lors de l'envoi :", error);
       alert("Une erreur est survenue lors de l'envoi de votre avis.");
-    });
-});
+    }
+  });
+}
+
+// Appels des fonctions
+displayHabitats();
+displayServices();
+displayAnimals();
+displayAvis();
+submitAvis();
