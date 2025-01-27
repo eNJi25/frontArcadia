@@ -1,3 +1,110 @@
-<div class="">
-    <h1 class="text-color">Bienvenue sur le site Arcadia</h1>
+<div class="container-fluid m-0 p-0">
+
+    <!-- Hero Scene -->
+    <div class="row home-hero-scene text-center text-color w-100 m-0">
+        <div class="home-hero-scene-content">
+            <img class="img-home-hero" src="../assets/images/hero-accueil.jpg" alt="Zoo Lion">
+            <h1 class="home-hero-content">Bienvenue au zoo Arcadia</h1>
+        </div>
+    </div>
+
+    <!-- Présentation Arcadia -->
+    <div class="m-2 my-4 row">
+        <div class="d-flex">
+            <div class="col-6 d-flex flex-column justify-content-center p-2">
+                <p>Situé au bord de la forêt de Brocéliande depuis 1960.</p>
+                <p>Arcadia vous propose de voyager au travers de ses différents habitats recueillant les animaux des 4
+                    coins
+                    du globe.
+                </p>
+            </div>
+            <div class="col-6 d-flex align-items-center">
+                <img class="rounded img-fluid img-presentation" src="../assets/images/accueil-presentation.jpg"
+                    alt="foret de brocéliande">
+            </div>
+        </div>
+    </div>
+
+    <!-- Présentation Habitats -->
+
+    <div class="row w-100 mx-0">
+        <h2 class="text-center my-3 text-titre">Nos différents habitats</h2>
+
+        <div id="habitats" class="row m-0 p-3">
+
+        </div>
+    </div>
+
+    <!-- Carousel Services -->
+    <div class="row mb-3 w-100 mx-0">
+        <h2 class="text-center mb-3 pb-3 text-titre">Nos différents services</h2>
+
+        <div id="carouselServices" class="carousel slide h-100 w-100 p-0" data-bs-ride="carousel">
+            <div class="carousel-inner h-100 w-100" id="services">
+
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselServices" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselServices" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Présentation Animaux -->
+
+    <div class="row w-100 mx-0">
+        <h2 class="text-center my-3 text-titre">Nos différents animaux</h2>
+
+        <div id="animaux" class="row w-100 m-0 p-3 px-0">
+
+        </div>
+    </div>
+
+    <!-- Présentation Avis -->
+    <div class="row px-2 pb-5 w-100 m-0">
+        <h2 class="text-center mb-4 text-titre">Nos visiteurs ont aimés</h2>
+        <div id="avis" class="row mx-0">
+
+        </div>
+        <div class="avis-submit col-12 bg-primary p-5">
+            <p class="text-color">Votre avis compte pour nous</p>
+            <button class="btn btn-secondary" type="submit" data-bs-toggle="modal"
+            data-bs-target="#SoumissionAvisModal">Donnez mon avis</button>
+        </div>
+    </div>
+
+</div>
+
+<!-- Modal Soumission Avis -->
+
+<div class="modal fade" id="SoumissionAvisModal" tabindex="-1" aria-labelledby="SoumissionAvisModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title fs-5" id="SoumissionAvisModalLabel">Edition Photo</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="pseudoAvisInput" class="form-label text-titre">Pseudo</label>
+                        <input name="pseudoAvisInput" type="text" class="form-control" id="pseudoAvisInput" placeholder="Votre pseudo, prénom ...">
+                    </div>
+                    <div class="mb-3">
+                        <label for="CommentaireAvisInput" class=" text-titre">Commentaire</label>
+                        <textarea class="form-control" name="CommentaireAvisInput" rows="10" cols="10" id="CommentaireAvisInput"></textarea>
+                    </div>
+
+                    <div class="text-center mb-3">
+                        <button id="avis-submit" type="button" class="btn btn-secondary text-white">Enregistrer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
