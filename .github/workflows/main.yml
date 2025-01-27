@@ -1,4 +1,4 @@
-on : push
+on: push
 name: 🚀 Deploy website on push
 jobs:
   web-deploy:
@@ -21,3 +21,4 @@ jobs:
           **/node_modules/bootstrap/js/**
           **/node_modules/bootstrap-icons/icons/**  
         server-dir: /www/
+        secure: true
