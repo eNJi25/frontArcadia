@@ -1,26 +1,32 @@
-on: push
 name: 🚀 Deploy website on push
+
+on:
+  push:
+    branches:
+      - main # Déploiement uniquement lors d'un push sur la branche main
+
 jobs:
   web-deploy:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
+
     steps:
-    - name: 🚚 Get latest code
-      uses: actions/checkout@v3
-   
-    - name: 📂 Sync files
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-      with:
-        server: ftp-arcadia2025.alwaysdata.net
-        username: arcadia2025
-        password: ${{ secrets.ftp_password }}
-        exclude: |
-          **/.git*
-          **/.git*/**
-          **/node_modules/bootstrap/scss/**
-          **/node_modules/bootstrap/js/**
-          **/node_modules/bootstrap-icons/icons/**  
-        server-dir: /www/
-        protocol: ftps
-        port: 990  # Ajoute un port explicite si nécessaire
-        timeout: 300  # Augmenter le timeout à 300 secondes
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v3
+
+      - name: 📂 Sync files with FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ftp-arcadia2025.alwaysdata.net # Hôte FTP
+          username: arcadia2025 # Votre nom d'utilisateur FTP
+          password: ${{ secrets.ftp_password }} # Utilisation de la clé secrète définie dans les settings
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/bootstrap/scss/**
+            **/node_modules/bootstrap/js/**
+            **/node_modules/bootstrap-icons/icons/**
+          server-dir: /www/ # Répertoire cible sur le serveur FTP
+          protocol: ftps # Utilisation de FTPS
+          port: 990 # Port explicite pour FTPS
+          timeout: 300 # Timeout augmenté à 300 secondes pour éviter les délais d'attente longs
