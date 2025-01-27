@@ -21,4 +21,4 @@ jobs:
           **/node_modules/bootstrap/js/**
           **/node_modules/bootstrap-icons/icons/**  
         server-dir: /www/
-        secure: true
+        protocol: ftps
