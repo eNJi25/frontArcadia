@@ -12,6 +12,10 @@
   color: var(--success);
 }
 
+.text-titre {
+  color: var(--secondary);
+}
+
 h1,
 h2,
 h3,
@@ -94,5 +98,8 @@ a:hover {
   top: 15%;
   left: 10%;
 }
+
+/* Cards Habitats */
+
 
 /* FIN Page d'accueil */
