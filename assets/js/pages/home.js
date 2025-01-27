@@ -202,12 +202,11 @@ submitButton.addEventListener("click", () => {
       return response.json();
     })
     .then((data) => {
-      
       alert("Avis envoyé avec succès !");
-      
+
       pseudoInput.value = "";
       commentaireInput.value = "";
-      
+
       const modal = bootstrap.Modal.getInstance(
         document.getElementById("SoumissionAvisModal")
       );
