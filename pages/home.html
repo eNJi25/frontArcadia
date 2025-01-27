@@ -72,8 +72,39 @@
         </div>
         <div class="avis-submit col-12 bg-primary p-5">
             <p class="text-color">Votre avis compte pour nous</p>
-            <a class="btn btn-secondary" type="submit">Donnez mon avis</a>
+            <button class="btn btn-secondary" type="submit" data-bs-toggle="modal"
+            data-bs-target="#SoumissionAvisModal">Donnez mon avis</button>
         </div>
     </div>
 
+</div>
+
+<!-- Modal Soumission Avis -->
+
+<div class="modal fade" id="SoumissionAvisModal" tabindex="-1" aria-labelledby="SoumissionAvisModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title fs-5" id="SoumissionAvisModalLabel">Edition Photo</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="pseudoAvisInput" class="form-label text-titre">Pseudo</label>
+                        <input name="pseudoAvisInput" type="text" class="form-control" id="pseudoAvisInput" placeholder="Votre pseudo, prénom ...">
+                    </div>
+                    <div class="mb-3">
+                        <label for="CommentaireAvisInput" class=" text-titre">Commentaire</label>
+                        <textarea class="form-control" name="CommentaireAvisInput" rows="10" cols="10" id="CommentaireAvisInput"></textarea>
+                    </div>
+
+                    <div class="text-center mb-3">
+                        <button id="avis-submit" type="button" class="btn btn-secondary text-white">Enregistrer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>

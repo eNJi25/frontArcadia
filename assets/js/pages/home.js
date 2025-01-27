@@ -63,9 +63,7 @@ fetch("https://arcadia2024.alwaysdata.net/arcadia/api/service/showAll")
       }
 
       serviceItem.innerHTML = `
-        <img src="${service.imageName}" class="d-block w-100" alt="${
-        service.nom
-      }">
+        <img src="${service.imageName}" class="d-block w-100" alt="${service.nom}">
         <div class="carousel-caption position-absolute bottom-0 start-0 w-100 d-flex justify-content-between align-items-center p-4">
             <h3 class="text-titre ms-3">${service.nom}</h3>
             <a href="#" class="btn btn-secondary me-3">En savoir plus</a>
@@ -169,3 +167,54 @@ fetch("https://arcadia2024.alwaysdata.net/arcadia/api/avis/valides")
   });
 
 // FIN Présentation Avis
+
+// Soumission d'un avis
+
+const pseudoInput = document.getElementById("pseudoAvisInput");
+const commentaireInput = document.getElementById("CommentaireAvisInput");
+const submitButton = document.getElementById("avis-submit");
+
+submitButton.addEventListener("click", () => {
+  const pseudo = pseudoInput.value.trim();
+  const commentaire = commentaireInput.value.trim();
+
+  if (!pseudo || !commentaire) {
+    alert("Veuillez remplir tous les champs !");
+    return;
+  }
+
+  const avisData = {
+    pseudo: pseudo,
+    commentaire: commentaire,
+  };
+
+  fetch("https://arcadia2024.alwaysdata.net/arcadia/api/avis/new", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(avisData),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Erreur HTTP : ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      
+      alert("Avis envoyé avec succès !");
+      
+      pseudoInput.value = "";
+      commentaireInput.value = "";
+      
+      const modal = bootstrap.Modal.getInstance(
+        document.getElementById("SoumissionAvisModal")
+      );
+      modal.hide();
+    })
+    .catch((error) => {
+      console.error("Erreur lors de l'envoi :", error);
+      alert("Une erreur est survenue lors de l'envoi de votre avis.");
+    });
+});
