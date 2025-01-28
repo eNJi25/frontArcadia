@@ -21,6 +21,12 @@ export const allRoutes = [
     "pages/auth/signup.html",
     "assets/js/pages/auth/signup.js"
   ),
+  new Route(
+    "/account",
+    "Mon compte",
+    "pages/auth/account.html",
+    "assets/js/pages/auth/account.js"
+  ),
 ];
 
 export const websiteName = "Arcadia";
