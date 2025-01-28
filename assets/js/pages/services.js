@@ -25,14 +25,13 @@ async function loadServices() {
 
       const textDiv = document.createElement("div");
       textDiv.className =
-        "col-6 d-flex flex-column justify-content-center p-4 text-justify";
+        "col-6 d-flex flex-column justify-content-center p-2 text-justify";
       const description = document.createElement("p");
       description.textContent = service.description;
       textDiv.appendChild(description);
 
       const imageDiv = document.createElement("div");
       imageDiv.className = "col-6 d-flex align-items-center";
-      imageDiv.style.padding = "10px"; // Ajouter un peu d'espace autour de l'image
       const image = document.createElement("img");
       image.className = "rounded img-fluid img-presentation";
       image.src = service.imageName;
@@ -49,6 +48,25 @@ async function loadServices() {
       }
 
       serviceDiv.appendChild(contentDiv);
+
+      // Ajouter une div pour les boutons Modifier et Supprimer
+      const actionDiv = document.createElement("div");
+      actionDiv.className = "mt-3 text-center";
+
+      const editButton = document.createElement("button");
+      editButton.className = "btn btn-warning me-2";
+      editButton.textContent = "Modifier";
+      editButton.addEventListener("click", () => openEditModal(service));
+
+      const deleteButton = document.createElement("button");
+      deleteButton.className = "btn btn-danger";
+      deleteButton.textContent = "Supprimer";
+      deleteButton.addEventListener("click", () => deleteService(service.id));
+
+      actionDiv.appendChild(editButton);
+      actionDiv.appendChild(deleteButton);
+
+      serviceDiv.appendChild(actionDiv);
       container.appendChild(serviceDiv);
     });
   } catch (error) {
@@ -56,50 +74,93 @@ async function loadServices() {
   }
 }
 
-// Fonction d'ajout de service
-async function submitNewService() {
-  const serviceName = document.getElementById("nomServiceInput").value;
-  const serviceDescription = document.getElementById(
-    "descriptionServiceInput"
-  ).value;
-  const serviceImage = document.getElementById("imageService").files[0];
+function openEditModal(service) {
+  const modal = document.getElementById("AjoutServiceModal");
+  const nomInput = document.getElementById("nomServiceInput");
+  const descriptionInput = document.getElementById("descriptionServiceInput");
+  const imageInput = document.getElementById("imageService");
 
-  if (!serviceName || !serviceDescription || !serviceImage) {
-    alert("Veuillez remplir tous les champs !");
-    return;
-  }
+  // Pré-remplir les champs avec les données actuelles du service
+  nomInput.value = service.nom;
+  descriptionInput.value = service.description;
+  imageInput.value = ""; // Laisser vide car les fichiers ne peuvent pas être préremplis
 
-  const formData = new FormData();
-  formData.append("nom", serviceName);
-  formData.append("description", serviceDescription);
-  formData.append("image", serviceImage);
+  // Remplacer l'événement onclick pour éviter les doublons
+  const saveButton = document.getElementById("ajout-service-submit");
+  saveButton.onclick = async () => {
+    try {
+      const updatedService = {
+        nom: nomInput.value,
+        description: descriptionInput.value,
+        image: imageInput.files[0] ? await toBase64(imageInput.files[0]) : null,
+      };
 
-  try {
-    const response = await fetch(
-      "https://arcadia2024.alwaysdata.net/arcadia/api/service/new",
-      {
-        method: "POST",
-        body: formData,
-      }
-    );
-
-    if (response.ok) {
-      alert("Service ajouté avec succès !");
-      document.getElementById("addServiceForm").reset();
-      const modal = bootstrap.Modal.getInstance(
-        document.getElementById("AjoutServiceModal")
+      const response = await fetch(
+        `https://arcadia2024.alwaysdata.net/arcadia/api/service/edit/${service.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedService),
+        }
       );
-      modal.hide();
-      loadServices();
-    } else {
-      alert("Erreur lors de l'ajout du service.");
+
+      if (response.ok) {
+        console.log("Service modifié avec succès");
+        const modalInstance = bootstrap.Modal.getInstance(modal);
+        modalInstance.hide(); // Fermer la modale après succès
+        loadServices(); // Recharger les services
+      } else {
+        console.error("Erreur lors de la modification du service");
+        const errorText = await response.text();
+        alert(`Erreur : ${errorText}`);
+      }
+    } catch (error) {
+      console.error("Erreur lors de la modification du service :", error);
     }
-  } catch (error) {
-    console.error("Erreur lors de l'appel à l'API :", error);
-    alert("Une erreur s'est produite. Veuillez réessayer.");
+  };
+
+  // Afficher la modale
+  const modalInstance = new bootstrap.Modal(modal);
+  modalInstance.show();
+}
+
+async function deleteService(serviceId) {
+  if (confirm("Êtes-vous sûr de vouloir supprimer ce service ?")) {
+    try {
+      const response = await fetch(
+        `https://arcadia2024.alwaysdata.net/arcadia/api/service/delete/${serviceId}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (response.ok) {
+        console.log("Service supprimé avec succès");
+        loadServices();
+      } else {
+        console.error("Erreur lors de la suppression du service");
+        const errorText = await response.text();
+        alert(`Erreur : ${errorText}`);
+      }
+    } catch (error) {
+      console.error("Erreur lors de la suppression du service :", error);
+    }
   }
 }
 
+// Fonction utilitaire pour convertir une image en Base64
+function toBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+// Charger les services au démarrage
 loadServices();
 
 document
