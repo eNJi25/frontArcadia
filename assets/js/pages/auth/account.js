@@ -60,9 +60,9 @@ async function loadUserAccount() {
 
       try {
         const updateResponse = await fetch(
-          "https://arcadia2024.alwaysdata.net/arcadia/api/account/me",
+          "https://arcadia2024.alwaysdata.net/arcadia/api/account/edit",
           {
-            method: "PUT",
+            method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
