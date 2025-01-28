@@ -58,6 +58,10 @@ a:hover {
   }
 }
 
+.text-justify {
+  text-align: justify;
+}
+
 /* FIN Régles Générales */
 
 /* DEBUT Header */
@@ -177,3 +181,36 @@ a:hover {
 }
 
 /* FIN Page d'accueil */
+
+/* DEBUT Page Services */
+
+.hero-scene {
+  position: relative;
+  height: 100vh;
+}
+
+@media screen and (max-width: 480px) {
+  .hero-scene {
+    position: relative;
+    height: 250px;
+  }
+}
+
+.img-hero {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.hero-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.3s;
+}
+
+/* FIN Page Services */

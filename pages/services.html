@@ -1,0 +1,58 @@
+<div class="container-fluid m-0 p-0">
+
+    <!-- Hero Scene -->
+    <div class="row hero-scene text-center text-color w-100 m-0">
+        <div class="hero-scene-content">
+            <img class="img-hero" src="../assets/images/hero-services.jpg" alt="Services">
+            <h1 class="hero-content">Nos services</h1>
+        </div>
+    </div>
+
+    <div class="bg-success text-center my-3 p-3">
+        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#AjoutServiceModal">Ajouter un
+            service</button>
+    </div>
+
+    <div id="service-container"></div>
+
+    <div class="bg-success text-center my-3 p-3">
+        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#AjoutServiceModal">Ajouter un
+            service</button>
+    </div>
+
+</div>
+
+
+<!-- Modale d'ajout de service -->
+<div class="modal fade" id="AjoutServiceModal" tabindex="-1" aria-labelledby="AjoutServiceModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title fs-5" id="AjoutServiceModalLabel">Ajout d'un service</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="nomServiceInput" class="form-label text-titre">Nom du service</label>
+                        <input name="nomServiceInput" type="text" class="form-control" id="nomServiceInput">
+                    </div>
+                    <div class="mb-3">
+                        <label for="descriptionServiceInput" class=" text-titre">Description du service</label>
+                        <textarea class="form-control" name="descriptionServiceInput" rows="10" cols="10"
+                            id="descriptionServiceInput"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="imageService" class="form-label">Image du service</label>
+                        <input name="imageService" class="form-control" type="file" id="imageService">
+                    </div>
+
+                    <div class="text-center mb-3">
+                        <button id="ajout-service-submit" type="button" class="btn btn-secondary text-white">Enregistrer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
