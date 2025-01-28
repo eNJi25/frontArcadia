@@ -9,6 +9,12 @@ export const allRoutes = [
     "pages/services.html",
     "assets/js/pages/services.js"
   ),
+  new Route(
+    "/login",
+    "Connexion",
+    "pages/auth/signin.html",
+    "assets/js/pages/auth/signin.js"
+  ),
 ];
 
 export const websiteName = "Arcadia";
