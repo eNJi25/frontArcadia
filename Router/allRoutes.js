@@ -15,6 +15,12 @@ export const allRoutes = [
     "pages/auth/signin.html",
     "assets/js/pages/auth/signin.js"
   ),
+  new Route(
+    "/registration",
+    "Inscription",
+    "pages/auth/signup.html",
+    "assets/js/pages/auth/signup.js"
+  ),
 ];
 
 export const websiteName = "Arcadia";
