@@ -27,6 +27,12 @@ export const allRoutes = [
     "pages/auth/account.html",
     "assets/js/pages/auth/account.js"
   ),
+  new Route(
+    "/editPassword",
+    "Modification mot de passe",
+    "pages/auth/editPassword.html",
+    "assets/js/pages/auth/editPassword.js"
+  ),
 ];
 
 export const websiteName = "Arcadia";
