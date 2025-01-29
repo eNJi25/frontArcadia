@@ -49,6 +49,10 @@ async function loadServices() {
 
       const actionDiv = document.createElement("div");
       actionDiv.className = "mt-3 text-center";
+      actionDiv.setAttribute("data-show", "connected");
+
+      const value = actionDiv.dataset.show;
+      console.log(value);
 
       const editButton = document.createElement("button");
       editButton.className = "btn btn-warning me-2";
@@ -66,6 +70,7 @@ async function loadServices() {
       serviceDiv.appendChild(actionDiv);
       container.appendChild(serviceDiv);
     });
+    showAndHideElementsForRoles();
   } catch (error) {
     console.error("Erreur lors du chargement des services :", error);
   }
@@ -145,6 +150,8 @@ async function deleteService(serviceId) {
 }
 
 async function submitNewService() {
+  const modal = document.getElementById("AjoutServiceModal"); // Ajoute cette ligne avant de l'utiliser
+
   const nomInput = document.getElementById("nomServiceInput").value.trim();
   const descriptionInput = document
     .getElementById("descriptionServiceInput")
