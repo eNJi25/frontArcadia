@@ -1,0 +1,37 @@
+<div class="container-fluid m-0 p-0">
+    <div id="hero-container"></div>
+</div>
+
+<div class="container bg-success text-center py-3 my-3" data-show="connected">
+    <button class="btn btn-secondary m-2">Modifier l'habitat</button>
+    <button class="btn btn-danger">Supprimer l'habitat</button>
+</div>
+<div class="d-flex justify-content-center my-2">
+    <h2 class="text-titre">Tous les animaux</h2>
+</div>
+<div class="container my-3">
+    <div class="row" id="animals-container"></div>
+</div>
+
+<!-- Modale pour afficher les détails de l'animal -->
+<div class="modal fade" id="AnimalDetailsModal" tabindex="-1" aria-labelledby="AnimalDetailsModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="AnimalDetailsModalLabel">Détails de l'animal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Prénom:</strong> <span id="animalPrenom"></span></p>
+                <p><strong>Race:</strong> <span id="animalRace"></span></p>
+                <p><strong>Nourriture du dernier repas:</strong> <span id="animalNourritureDernierRepas"></span></p>
+                <p><strong>Quantité du dernier repas:</strong> <span id="animalQuantiteDernierRepas"></span></p>
+                <p><strong>Date du dernier repas:</strong> <span id="animalDateDernierRepas"></span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
