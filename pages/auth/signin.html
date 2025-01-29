@@ -1,19 +1,22 @@
 <div class="container-fluid m-0 p-0">
 
     <div class="container-fluid d-flex justify-content-center p-5">
-        <form>
+        <form id="signinForm">
             <div class="bg-success p-5">
                 <h2 class="text-titre text-center">Espace réservé aux administrateurs</h2>
                 <div class="mb-3">
                     <label for="EmailInput" class="form-label">Email</label>
                     <input type="email" class="form-control" id="EmailInput" name="Email">
+                    <div class="invalid-feedback">
+                        Le mail et le mot de passe ne correspondent pas.
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="PasswordInput" class="form-label">Mot de passe</label>
                     <input type="password" class="form-control" id="PasswordInput" name="Password">
                 </div>
                 <div class="text-center">
-                    <button type="submit" class="btn btn-secondary">Connexion</button>
+                    <button type="button" class="btn btn-secondary" id="btnSignin">Connexion</button>
                 </div>
             </div>
 
