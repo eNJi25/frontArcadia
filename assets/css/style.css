@@ -215,3 +215,17 @@ a:hover {
 }
 
 /* FIN Page Services */
+
+.habitat-image {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+}
+
+@media screen and (max-width: 480px) {
+  .habitat-image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+  }
+}

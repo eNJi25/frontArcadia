@@ -1,3 +1,5 @@
+const apiUrl = "https://arcadia2024.alwaysdata.net/arcadia/api/";
+
 // Fontion pour mettre un texte tout en majuscule
 function toUpperCase(text) {
   return text.toUpperCase();
