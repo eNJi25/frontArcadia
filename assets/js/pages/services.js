@@ -11,8 +11,9 @@ async function loadServices() {
 
     services.forEach((service, index) => {
       const serviceDiv = document.createElement("div");
-      serviceDiv.className = `m-4 row ${index % 2 === 0 ? "" : "bg-success"}`;
-      serviceDiv.style.padding = "20px";
+      serviceDiv.className = `m-4 row p-2 ${
+        index % 2 === 0 ? "" : "bg-success"
+      }`;
 
       const title = document.createElement("h2");
       title.className = "text-titre text-center mb-4";
@@ -24,8 +25,9 @@ async function loadServices() {
 
       const textDiv = document.createElement("div");
       textDiv.className =
-        "col-6 d-flex flex-column justify-content-center p-2 text-justify";
+        "col-6 d-flex flex-column justify-content-center p-4 text-justify";
       const description = document.createElement("p");
+      description.className = "mb-0";
       description.textContent = service.description;
       textDiv.appendChild(description);
 
