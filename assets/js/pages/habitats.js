@@ -89,9 +89,9 @@ async function loadHabitats() {
         seeAllButton.textContent = `Voir tous les animaux du ${habitat.nom}`;
       }
 
-      //   seeAllButton.addEventListener("click", () => {
-      //     alert(`Voir tous les animaux de ${habitat.nom}`);
-      //   });
+      seeAllButton.addEventListener("click", () => {
+        window.location.href = `/habitat?id=${habitat.id}`;
+      });
 
       divButton.appendChild(seeAllButton);
       habitatDiv.appendChild(divButton);
