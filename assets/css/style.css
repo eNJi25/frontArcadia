@@ -1,6 +1,6 @@
 /* DEBUT Régles génerales */
 
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -30,7 +30,8 @@ h4 {
 }
 
 p,
-a {
+a,
+button {
   font-family: "Nunito", Arial, sans-serif;
 }
 
@@ -173,7 +174,7 @@ a:hover {
 }
 
 @media screen and (min-width: 780px) {
-  .avis-submit{
+  .avis-submit {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
