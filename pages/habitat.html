@@ -1,0 +1,228 @@
+<div class="container-fluid m-0 p-0">
+    <div id="hero-container"></div>
+</div>
+<div id="description-habitat"></div>
+<div id="btn-habitat"></div>
+
+<div class="d-flex justify-content-center my-2">
+    <h2 class="text-titre">Tous les animaux</h2>
+</div>
+<div class="container bg-success text-center py-3 my-3" data-show="connected">
+    <button id="ajout-animal" class="btn btn-secondary m-2" data-bs-toggle="modal"
+        data-bs-target="#AjoutAnimalModal">Ajouter un animal</button>
+</div>
+
+
+<div class="container my-3">
+    <div class="row" id="animals-container"></div>
+</div>
+
+<!-- Modale pour afficher les détails de l'animal -->
+<div class="modal fade" id="AnimalDetailsModal" tabindex="-1" aria-labelledby="AnimalDetailsModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="AnimalDetailsModalLabel">Détails de l'animal</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Prénom:</strong> <span id="animalPrenom"></span></p>
+                <p><strong>Race:</strong> <span id="animalRace"></span></p>
+                <p><strong>Nourriture du dernier repas:</strong> <span id="animalNourritureDernierRepas"></span></p>
+                <p><strong>Quantité du dernier repas:</strong> <span id="animalQuantiteDernierRepas"></span></p>
+                <p><strong>Date du dernier repas:</strong> <span id="animalDateDernierRepas"></span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modale Modifier Habitat -->
+<div class="modal fade" id="EditHabitatModal" tabindex="-1" aria-labelledby="EditHabitatModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="EditHabitatModalLabel">Modifier l'Habitat</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editHabitatForm">
+                    <div class="mb-3">
+                        <label for="editHabitatNom" class="form-label">Nom de l'habitat</label>
+                        <input type="text" class="form-control" id="editHabitatNom" name="nom" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editHabitatDescription" class="form-label">Description</label>
+                        <textarea class="form-control" id="editHabitatDescription" name="description" rows="3"
+                            required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editHabitatImage" class="form-label">Image</label>
+                        <input type="file" class="form-control" id="editHabitatImage" name="imageFile">
+                    </div>
+                    <button type="button" id="edit-habitat-submit" class="btn btn-success">
+                        Enregistrer les modifications
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modale d'ajout d'un animal -->
+<div class="modal fade" id="AjoutAnimalModal" tabindex="-1" aria-labelledby="AjoutAnimalModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title fs-5" id="AjoutAnimalModalLabel">Ajout d'un animal</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="prenomAnimalInput" class="form-label text-titre">Prénom de l'animal</label>
+                        <input name="prenomAnimalInput" type="text" class="form-control" id="prenomAnimalInput">
+                    </div>
+                    <div class="mb-3">
+                        <label for="raceAnimalInput" class="form-label text-titre">Race de l'animal</label>
+                        <input name="raceAnimalInput" type="text" class="form-control" id="raceAnimalInput">
+                    </div>
+                    <div class="mb-3">
+                        <label for="imageAnimal" class="form-label">Image de l'animal</label>
+                        <input name="imageAnimal" class="form-control" type="file" id="imageAnimal">
+                    </div>
+
+                    <div class="text-center mb-3">
+                        <button id="ajout-animal-submit" type="button"
+                            class="btn btn-secondary text-white">Enregistrer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modale de modification d'un animal -->
+<div class="modal fade" id="EditionAnimalModal" tabindex="-1" aria-labelledby="EditionAnimalModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title fs-5" id="EditionAnimalModalLabel">Modifier un animal</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input type="hidden" id="editAnimalId">
+                    <div class="mb-3">
+                        <label for="editPrenomAnimal" class="form-label">Prénom</label>
+                        <input type="text" class="form-control" id="editPrenomAnimal">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editRaceAnimal" class="form-label">Race</label>
+                        <input type="text" class="form-control" id="editRaceAnimal">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editImageAnimal" class="form-label">Image</label>
+                        <input type="file" class="form-control" id="editImageAnimal">
+                    </div>
+                    <div class="text-center">
+                        <button type="button" class="btn btn-secondary" onclick="editAnimal()">Modifier</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modale de suppression d'un animal -->
+<div class="modal fade" id="DeleteAnimalModal" tabindex="-1" aria-labelledby="DeleteAnimalModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title fs-5" id="DeleteAnimalModalLabel">Supprimer un animal</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Voulez-vous vraiment supprimer cet animal ?</p>
+                <input type="hidden" id="deleteAnimalId">
+                <div class="text-center">
+                    <button onclick="deleteAnimal()" id="delete-animal-submit" type="button" class="btn btn-danger">Supprimer</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modale de modification du dernier repas de l'animal -->
+<div class="modal fade" id="EditionLastMealModal" tabindex="-1" aria-labelledby="EditionLastMealModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title fs-5" id="EditionLastMealModalLabel">Modifier le dernier repas</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input type="hidden" id="editLastMealAnimalId">
+                    <div class="mb-3">
+                        <label for="editLastMealFood" class="form-label">Nourriture</label>
+                        <input type="text" class="form-control" id="editLastMealFood">
+                    </div>
+                    <div class="mb-3">
+                        <label for="editLastMealQuantity" class="form-label">Quantité</label>
+                        <input type="number" class="form-control" id="editLastMealQuantity" min="0">
+                    </div>
+                    <div class="text-center">
+                        <button type="button" class="btn btn-secondary" onclick="editLastMeal()">Modifier</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modale pour ajouter un rapport vétérinaire -->
+<div class="modal fade" id="RapportVeterinaireModal" tabindex="-1" aria-labelledby="RapportVeterinaireModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title fs-5" id="RapportVeterinaireModalLabel">Ajouter un rapport vétérinaire</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input type="hidden" id="rapportAnimalId">
+                    <div class="mb-3">
+                        <label for="etatAnimal" class="form-label">État de l'animal</label>
+                        <input type="text" class="form-control" id="etatAnimal">
+                    </div>
+                    <div class="mb-3">
+                        <label for="nourriturePropose" class="form-label">Nourriture proposée</label>
+                        <input type="text" class="form-control" id="nourriturePropose">
+                    </div>
+                    <div class="mb-3">
+                        <label for="quantitePropose" class="form-label">Quantité (g)</label>
+                        <input type="number" class="form-control" id="quantitePropose">
+                    </div>
+                    <div class="mb-3">
+                        <label for="detailHabitat" class="form-label">Détails de l'habitat</label>
+                        <textarea class="form-control" id="detailHabitat" rows="3"></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button onclick="addVeterinaryReport()" id="ajout-rapport-submit" type="button" class="btn btn-secondary">Ajouter
+                            Rapport</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

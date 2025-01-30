@@ -33,6 +33,18 @@ export const allRoutes = [
     "pages/auth/editPassword.html",
     "assets/js/pages/auth/editPassword.js"
   ),
+  new Route(
+    "/habitats",
+    "Nos habitats",
+    "pages/habitats.html",
+    "assets/js/pages/habitats.js"
+  ),
+  new Route(
+    "/habitat",
+    "Habitat",
+    "pages/habitat.html",
+    "assets/js/pages/habitat.js"
+  ),
 ];
 
 export const websiteName = "Arcadia";

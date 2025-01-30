@@ -1,7 +1,4 @@
-const apiUrl = "https://arcadia2024.alwaysdata.net/arcadia/api/";
-
 const token = getToken();
-console.log(token);
 
 async function getInfosUser() {
   if (!token) {
@@ -27,7 +24,6 @@ async function getInfosUser() {
     }
 
     const result = await response.json();
-    console.log("Résultat des données utilisateur :", result);
 
     return result;
   } catch (error) {

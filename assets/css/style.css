@@ -215,3 +215,56 @@ a:hover {
 }
 
 /* FIN Page Services */
+
+.habitat-image {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+}
+
+@media screen and (max-width: 480px) {
+  .habitat-image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+  }
+}
+
+.image-card {
+  position: relative;
+}
+
+.image-card:hover .titre-image,
+.image-card:hover .action-image-buttons {
+  opacity: 1;
+}
+
+.image-card:hover img {
+  filter: brightness(0.3);
+}
+
+.image-card img {
+  transition: all 0.4s;
+}
+
+.image-card .titre-image {
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.4s;
+}
+
+.image-card .action-image-buttons {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 5px;
+  display: flex;
+  justify-content: space-between;
+  opacity: 0;
+  transition: all 0.3s;
+}
+

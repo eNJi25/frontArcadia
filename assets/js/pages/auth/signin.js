@@ -33,6 +33,9 @@ function checkCredentials() {
       }
     })
     .then((result) => {
+
+      setCookie(UserId, result.id, 7);
+
       const token = result.apiToken;
       setToken(token);
 

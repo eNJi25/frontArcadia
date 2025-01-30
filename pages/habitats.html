@@ -1,0 +1,53 @@
+<div class="container-fluid m-0 p-0">
+
+    <div class="row hero-scene text-center text-color w-100 m-0">
+        <div class="hero-scene-content">
+            <img class="img-hero" src="../assets/images/accueil-presentation.jpg" alt="Services">
+            <h1 class="hero-content">Nos habitats</h1>
+        </div>
+    </div>
+
+    <div class="container bg-success text-center py-3 my-3" data-show="connected">
+        <button class="btn btn-primary m-2" data-bs-toggle="modal" data-bs-target="#AjoutHabitatModal">Ajouter un
+            habitat
+        </button>
+    </div>
+
+    <div id="habitats"></div>
+
+</div>
+
+<!-- Modale d'ajout d'habitat -->
+<div class="modal fade" id="AjoutHabitatModal" tabindex="-1" aria-labelledby="AjoutHabitatModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title fs-5" id="AjoutHabitatModalLabel">Ajout d'un habitat</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="nomHabitatInput" class="form-label text-titre">Nom de l'habitat</label>
+                        <input name="nomHabitatInput" type="text" class="form-control" id="nomHabitatInput">
+                    </div>
+                    <div class="mb-3">
+                        <label for="descriptionHabitatInput" class="text-titre">Description de l'habitat</label>
+                        <textarea class="form-control" name="descriptionHabitatInput" rows="10" cols="10"
+                            id="descriptionHabitatInput"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="imageHabitat" class="form-label">Image de l'habitat</label>
+                        <input name="imageHabitat" class="form-control" type="file" id="imageHabitat">
+                    </div>
+
+                    <div class="text-center mb-3">
+                        <button id="ajout-habitat-submit" type="button"
+                            class="btn btn-secondary text-white">Enregistrer</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
