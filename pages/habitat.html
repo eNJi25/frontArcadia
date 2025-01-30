@@ -8,7 +8,8 @@
     <h2 class="text-titre">Tous les animaux</h2>
 </div>
 <div class="container bg-success text-center py-3 my-3" data-show="connected">
-    <button class="btn btn-secondary m-2">Ajouter un animal</button>
+    <button id="ajout-animal" class="btn btn-secondary m-2" data-bs-toggle="modal"
+        data-bs-target="#AjoutAnimalModal">Ajouter un animal</button>
 </div>
 
 
@@ -65,6 +66,39 @@
                     <button type="button" id="edit-habitat-submit" class="btn btn-success">
                         Enregistrer les modifications
                     </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modale d'ajout d'un animal -->
+<div class="modal fade" id="AjoutAnimalModal" tabindex="-1" aria-labelledby="AjoutAnimalModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title fs-5" id="AjoutAnimalModalLabel">Ajout d'un animal</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="prenomAnimalInput" class="form-label text-titre">Prénom de l'animal</label>
+                        <input name="prenomAnimalInput" type="text" class="form-control" id="prenomAnimalInput">
+                    </div>
+                    <div class="mb-3">
+                        <label for="raceAnimalInput" class="form-label text-titre">Race de l'animal</label>
+                        <input name="raceAnimalInput" type="text" class="form-control" id="raceAnimalInput">
+                    </div>
+                    <div class="mb-3">
+                        <label for="imageAnimal" class="form-label">Image de l'animal</label>
+                        <input name="imageAnimal" class="form-control" type="file" id="imageAnimal">
+                    </div>
+
+                    <div class="text-center mb-3">
+                        <button id="ajout-animal-submit" type="button"
+                            class="btn btn-secondary text-white">Enregistrer</button>
+                    </div>
                 </form>
             </div>
         </div>

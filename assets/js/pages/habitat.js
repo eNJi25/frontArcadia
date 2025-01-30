@@ -34,6 +34,12 @@ async function loadHabitatDetails() {
       .getElementById("deleteHabitat")
       .addEventListener("click", () => deleteService(habitatId));
 
+    document
+      .getElementById("ajout-animal-submit")
+      .addEventListener("click", function () {
+        submitNewAnimal(habitat.nom);
+      });
+
     loadAnimalsByHabitat(habitatId);
   } catch (error) {
     console.error("Erreur lors du chargement de l'habitat :", error);
@@ -227,6 +233,55 @@ async function deleteService(habitatId) {
     } catch (error) {
       console.error("Erreur lors de la suppression de l'habitat :", error);
     }
+  }
+}
+
+async function submitNewAnimal(habitat) {
+  const modal = document.getElementById("AjoutAnimalModal");
+
+  const prenomInput = document.getElementById("prenomAnimalInput").value.trim();
+  const raceInput = document.getElementById("raceAnimalInput").value.trim();
+  const imageInput = document.getElementById("imageAnimal").files[0];
+
+  if (!prenomInput || !raceInput || !imageInput) {
+    alert("Veuillez remplir tous les champs.");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("prenom", prenomInput);
+  formData.append("race", raceInput);
+  formData.append("habitat", habitat);
+  formData.append("imageFile", imageInput);
+  console.log(habitat);
+
+  const token = getToken();
+
+  try {
+    const response = await fetch(
+      apiUrl + "animal/new",
+      {
+        method: "POST",
+        body: formData,
+        headers: {
+          "X-AUTH-TOKEN": token,
+        },
+      }
+    );
+
+    const responseData = await response.text();
+    console.log("Réponse brute de l'API :", responseData);
+
+    if (!response.ok) {
+      throw new Error(`Erreur API : ${responseData}`);
+    }
+
+    alert("Animal ajouté avec succès !");
+    bootstrap.Modal.getInstance(modal).hide();
+    loadHabitatDetails();
+  } catch (error) {
+    console.error("Erreur :", error);
+    alert("Une erreur est survenue lors de l'ajout de l'animal.");
   }
 }
 
