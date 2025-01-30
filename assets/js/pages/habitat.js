@@ -265,7 +265,6 @@ async function fetchAnimalForEdit(animalId) {
 
 async function editAnimal() {
   const id = document.getElementById("editAnimalId").value;
-  console.log(id);
   const prenom = document.getElementById("editPrenomAnimal").value.trim();
   const race = document.getElementById("editRaceAnimal").value.trim();
   const image = document.getElementById("editImageAnimal").files[0];
@@ -313,7 +312,7 @@ async function deleteHabitat(habitatId) {
       });
 
       if (response.ok) {
-         window.location.href = "/habitats";
+        window.location.href = "/habitats";
       } else {
         alert(`Erreur : ${await response.text()}`);
       }
@@ -403,7 +402,6 @@ async function editLastMeal() {
     alert("Veuillez remplir les champs nourriture et quantité.");
     return;
   }
-  console.log("coucou");
 
   const formData = new FormData();
   formData.append("nourriture_dernier_repas", nourriture);
@@ -452,7 +450,7 @@ async function addVeterinaryReport() {
 
   const formData = new URLSearchParams();
   formData.append("animal", animalId);
-  formData.append("user", getCookie("id"));
+  formData.append("user", getCookie(RoleId));
   formData.append("etat_animal", etatAnimal);
   if (nourriturePropose)
     formData.append("nourriture_propose", nourriturePropose);

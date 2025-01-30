@@ -21,6 +21,7 @@ async function fetchData(url) {
 
 const tokenCookieName = "accesstoken";
 const RoleCookieName = "role";
+const UserId = "id"
 
 const signoutBtn = document.getElementById("signoutBtn");
 signoutBtn.addEventListener("click", signout);
@@ -28,7 +29,7 @@ signoutBtn.addEventListener("click", signout);
 function signout() {
   eraseCookie(tokenCookieName);
   eraseCookie(RoleCookieName);
-  eraseCookie("id");
+  eraseCookie(UserId);
   window.location.reload();
 }
 
@@ -45,7 +46,7 @@ function getRole() {
 }
 
 function getId() {
-  return getCookie("id");
+  return getCookie(UserId);
 }
 
 function setCookie(name, value, days) {
@@ -55,7 +56,8 @@ function setCookie(name, value, days) {
     date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
     expires = "; expires=" + date.toUTCString();
   }
-  document.cookie = name + "=" + (value || "") + expires + "; path=/";
+  document.cookie =
+    name + "=" + (value || "") + expires + "; path=/;  SameSite=None; Secure;";
 }
 
 function getCookie(name) {

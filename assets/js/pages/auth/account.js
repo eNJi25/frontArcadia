@@ -40,7 +40,7 @@ async function loadUserAccount() {
 
   if (!userData) {
     console.error("Aucune donnée utilisateur reçue.");
-    return; // On arrête si l'utilisateur n'est pas récupéré
+    return;
   }
 
   const container = document.getElementById("account-container");
