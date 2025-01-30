@@ -103,13 +103,13 @@ async function loadAnimalsByHabitat(habitatId) {
             <div class="image-container position-relative">
                 <img src="${animal.imageSlug}" alt="${animal.prenom}" class="rounded w-100">
                 <div class="action-image-buttons" data-show="connected">
-                    <button type="button" class="btn btn-outline-light" data-bs-toggle="modal"
-                            data-bs-target="#EditionPhotoModal"><i class="bi bi-pencil-square"></i></button>
-                    <button type="button" class="btn btn-outline-light" data-bs-toggle="modal"
-                            data-bs-target="#DeletePhotoModal"><i class="bi bi-trash"></i></button>
-                    <button type="button" class="btn btn-outline-light" data-bs-toggle="modal"
+                    <button id="editionAnimal" type="button" class="btn btn-outline-light" data-bs-toggle="modal"
+                            data-bs-target="#EditionAnimalModal"><i class="bi bi-pencil-square"></i></button>
+                    <button id=" deleteAnimal" type="button" class="btn btn-outline-light" data-bs-toggle="modal"
+                            data-bs-target="#DeleteAnimalModal"><i class="bi bi-trash"></i></button>
+                    <button id="rapportVeterinaire" type="button" class="btn btn-outline-light" data-bs-toggle="modal"
                             data-bs-target="#RapportVeterinaireModal"><i class="bi bi-calendar2-heart"></i></button>
-                    <button type="button" class="btn btn-outline-light" data-bs-toggle="modal"
+                    <button id="repasAnimal" type="button" class="btn btn-outline-light" data-bs-toggle="modal"
                             data-bs-target="#RepasModal"><i class="bi bi-cup-hot"></i></button>
                 </div>
                 <button type="button" class="btn btn-secondary position-absolute bottom-0 start-50 translate-middle-x mb-2" 
