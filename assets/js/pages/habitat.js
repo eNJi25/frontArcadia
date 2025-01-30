@@ -32,7 +32,7 @@ async function loadHabitatDetails() {
 
     document
       .getElementById("deleteHabitat")
-      .addEventListener("click", () => deleteService(habitatId));
+      .addEventListener("click", () => deleteHabitat(habitatId));
 
     document
       .getElementById("ajout-animal-submit")
@@ -103,14 +103,20 @@ async function loadAnimalsByHabitat(habitatId) {
             <div class="image-container position-relative">
                 <img src="${animal.imageSlug}" alt="${animal.prenom}" class="rounded w-100">
                 <div class="action-image-buttons" data-show="connected">
-                    <button id="editionAnimal" type="button" class="btn btn-outline-light" data-bs-toggle="modal"
-                            data-bs-target="#EditionAnimalModal"><i class="bi bi-pencil-square"></i></button>
-                    <button id=" deleteAnimal" type="button" class="btn btn-outline-light" data-bs-toggle="modal"
-                            data-bs-target="#DeleteAnimalModal"><i class="bi bi-trash"></i></button>
-                    <button id="rapportVeterinaire" type="button" class="btn btn-outline-light" data-bs-toggle="modal"
-                            data-bs-target="#RapportVeterinaireModal"><i class="bi bi-calendar2-heart"></i></button>
-                    <button id="repasAnimal" type="button" class="btn btn-outline-light" data-bs-toggle="modal"
-                            data-bs-target="#RepasModal"><i class="bi bi-cup-hot"></i></button>
+                    <button type="button" class="btn btn-outline-light" 
+                      data-bs-toggle="modal" data-bs-target="#EditionAnimalModal"
+                      onclick="fetchAnimalForEdit(${animal.id})">
+                      <i class="bi bi-pencil-square"></i>
+                    </button>
+                    <button data-animal-id="${animal.id}" id=" deleteAnimal" type="button" class="btn btn-outline-light" data-bs-toggle="modal"
+                            data-bs-target="#DeleteAnimalModal" onclick="getId(${animal.id})"><i class="bi bi-trash"></i></button>
+                    <button data-animal-id="${animal.id}" id="rapportVeterinaire" type="button" class="btn          btn-outline-light" data-bs-toggle="modal"
+                            data-bs-target="#RapportVeterinaireModal" onclick="getId(${animal.id})"><i class="bi bi-calendar2-heart"></i></button>
+                    <button type="button" class="btn btn-outline-light" 
+                      data-bs-toggle="modal" data-bs-target="#EditionLastMealModal"
+                      onclick="getId(${animal.id})">
+                      <i class="bi bi-pencil-square"></i>
+                    </button>
                 </div>
                 <button type="button" class="btn btn-secondary position-absolute bottom-0 start-50 translate-middle-x mb-2" 
                         onclick="fetchAnimalDetails(${animal.id})">
@@ -143,16 +149,28 @@ async function fetchAnimalDetails(animalId) {
     }
 
     const animal = await response.json();
+    console.log(animal);
 
     // Affichage des détails de l'animal dans la modale
     document.getElementById("animalPrenom").innerText = animal.prenom;
     document.getElementById("animalRace").innerText = animal.race;
     document.getElementById("animalNourritureDernierRepas").innerText =
       animal.nourritureDernierRepas;
-    document.getElementById("animalQuantiteDernierRepas").innerText =
-      animal.quantiteDernierRepas;
-    document.getElementById("animalDateDernierRepas").innerText =
-      animal.dateDernierRepas;
+    if (animal.quantiteDernierRepas != null) {
+      document.getElementById("animalQuantiteDernierRepas").innerText = `
+      ${animal.quantiteDernierRepas} grammes`;
+    }
+    if (animal.dateDernierRepas?.date) {
+      const dateObj = new Date(animal.dateDernierRepas.date);
+      const dateFormatted = dateObj.toLocaleDateString("fr-FR", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      });
+
+      document.getElementById("animalDateDernierRepas").innerText =
+        dateFormatted;
+    }
 
     const modal = new bootstrap.Modal(
       document.getElementById("AnimalDetailsModal")
@@ -178,12 +196,8 @@ function openEditModal(habitat) {
   descriptionInput.value = habitat.description || "";
   imageInput.value = "";
 
-  // Supprimer l'ancien gestionnaire d'événements pour éviter les doublons
-  saveButton.replaceWith(saveButton.cloneNode(true));
-  const newSaveButton = document.getElementById("edit-habitat-submit");
-
   // Ajouter un nouveau gestionnaire propre
-  newSaveButton.addEventListener("click", async () => {
+  saveButton.addEventListener("click", async () => {
     if (!nomInput.value || !descriptionInput.value) {
       alert("Veuillez remplir tous les champs.");
       return;
@@ -217,7 +231,80 @@ function openEditModal(habitat) {
   new bootstrap.Modal(modalElement).show();
 }
 
-async function deleteService(habitatId) {
+async function fetchAnimalForEdit(animalId) {
+  try {
+    const response = await fetch(
+      `https://arcadia2024.alwaysdata.net/arcadia/api/animal/show/${animalId}`
+    );
+
+    if (!response.ok) {
+      throw new Error(
+        `Erreur de récupération des détails de l'animal : ${response.status}`
+      );
+    }
+
+    const animal = await response.json();
+
+    // Préremplir les champs du formulaire
+    document.getElementById("editAnimalId").value = animal.id;
+    document.getElementById("editPrenomAnimal").value = animal.prenom;
+    document.getElementById("editRaceAnimal").value = animal.race;
+
+    // Afficher la modale
+    const modal = new bootstrap.Modal(
+      document.getElementById("EditionAnimalModal")
+    );
+    modal.show();
+  } catch (error) {
+    console.error(
+      "Erreur lors de la récupération des détails de l'animal :",
+      error
+    );
+  }
+}
+
+async function editAnimal() {
+  const id = document.getElementById("editAnimalId").value;
+  console.log(id);
+  const prenom = document.getElementById("editPrenomAnimal").value.trim();
+  const race = document.getElementById("editRaceAnimal").value.trim();
+  const image = document.getElementById("editImageAnimal").files[0];
+
+  if (!prenom || !race) {
+    alert("Veuillez remplir au moins les champs prénom et race.");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("prenom", prenom);
+  formData.append("race", race);
+  if (image) formData.append("imageFile", image);
+
+  try {
+    const response = await fetch(apiUrl + `animal/edit/${id}`, {
+      method: "POST",
+      body: formData,
+      headers: { "X-AUTH-TOKEN": getToken() },
+    });
+
+    if (!response.ok) throw new Error(await response.text());
+
+    alert("Animal modifié avec succès !");
+
+    // Fermer la modale après modification
+    bootstrap.Modal.getInstance(
+      document.getElementById("EditionAnimalModal")
+    ).hide();
+
+    // Recharger la liste des animaux
+    loadHabitatDetails();
+  } catch (error) {
+    console.error("Erreur :", error);
+    alert("Erreur lors de la modification.");
+  }
+}
+
+async function deleteHabitat(habitatId) {
   if (confirm("Êtes-vous sûr de vouloir supprimer cet habitat ?")) {
     try {
       const response = await fetch(apiUrl + `habitat/delete/${habitatId}`, {
@@ -226,7 +313,7 @@ async function deleteService(habitatId) {
       });
 
       if (response.ok) {
-        loadHabitatDetails();
+         window.location.href = "/habitats";
       } else {
         alert(`Erreur : ${await response.text()}`);
       }
@@ -258,16 +345,13 @@ async function submitNewAnimal(habitat) {
   const token = getToken();
 
   try {
-    const response = await fetch(
-      apiUrl + "animal/new",
-      {
-        method: "POST",
-        body: formData,
-        headers: {
-          "X-AUTH-TOKEN": token,
-        },
-      }
-    );
+    const response = await fetch(apiUrl + "animal/new", {
+      method: "POST",
+      body: formData,
+      headers: {
+        "X-AUTH-TOKEN": token,
+      },
+    });
 
     const responseData = await response.text();
     console.log("Réponse brute de l'API :", responseData);
@@ -283,6 +367,127 @@ async function submitNewAnimal(habitat) {
     console.error("Erreur :", error);
     alert("Une erreur est survenue lors de l'ajout de l'animal.");
   }
+}
+
+async function deleteAnimal() {
+  const id = document.getElementById("deleteAnimalId").value;
+
+  try {
+    const response = await fetch(
+      `https://arcadia2024.alwaysdata.net/arcadia/api/animal/delete/${id}`,
+      {
+        method: "DELETE",
+        headers: { "X-AUTH-TOKEN": getToken() },
+      }
+    );
+
+    if (!response.ok) throw new Error(await response.text());
+
+    alert("Animal supprimé !");
+    bootstrap.Modal.getInstance(
+      document.getElementById("DeleteAnimalModal")
+    ).hide();
+    loadHabitatDetails();
+  } catch (error) {
+    console.error("Erreur :", error);
+    alert("Erreur lors de la suppression.");
+  }
+}
+
+async function editLastMeal() {
+  const id = document.getElementById("editLastMealAnimalId").value.trim();
+  const nourriture = document.getElementById("editLastMealFood").value.trim();
+  const quantite = document.getElementById("editLastMealQuantity").value.trim();
+
+  if (!nourriture || !quantite) {
+    alert("Veuillez remplir les champs nourriture et quantité.");
+    return;
+  }
+  console.log("coucou");
+
+  const formData = new FormData();
+  formData.append("nourriture_dernier_repas", nourriture);
+  formData.append("quantite_dernier_repas", quantite.toString());
+
+  try {
+    const response = await fetch(apiUrl + `animal/lastMeal/${id}`, {
+      method: "POST",
+      body: formData,
+      headers: { "X-AUTH-TOKEN": getToken() },
+    });
+
+    if (!response.ok) throw new Error(await response.text());
+
+    alert("Dernier repas modifié avec succès !");
+
+    // Fermer la modale après modification
+    bootstrap.Modal.getInstance(
+      document.getElementById("EditionLastMealModal")
+    ).hide();
+
+    // Recharger les détails de l'animal ou autre action si nécessaire
+    loadHabitatDetails();
+  } catch (error) {
+    console.error("Erreur :", error);
+    alert("Erreur lors de la modification du dernier repas.");
+  }
+}
+
+async function addVeterinaryReport() {
+  const animalId = document.getElementById("rapportAnimalId").value;
+  console.log(animalId);
+  const etatAnimal = document.getElementById("etatAnimal").value.trim();
+  const nourriturePropose = document
+    .getElementById("nourriturePropose")
+    .value.trim();
+  const quantitePropose = document
+    .getElementById("quantitePropose")
+    .value.trim();
+  const detailHabitat = document.getElementById("detailHabitat").value.trim();
+
+  if (!etatAnimal) {
+    alert("Veuillez renseigner l'état de l'animal.");
+    return;
+  }
+
+  const formData = new URLSearchParams();
+  formData.append("animal", animalId);
+  formData.append("user", getCookie(UserId));
+  formData.append("etat_animal", etatAnimal);
+  if (nourriturePropose)
+    formData.append("nourriture_propose", nourriturePropose);
+  if (quantitePropose) formData.append("quantite_propose", quantitePropose);
+  if (detailHabitat) formData.append("detail_habitat", detailHabitat);
+
+  try {
+    const response = await fetch(
+      `https://arcadia2024.alwaysdata.net/arcadia/api/rapport/new`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          "X-AUTH-TOKEN": getToken(),
+        },
+        body: formData,
+      }
+    );
+
+    if (!response.ok) throw new Error(await response.text());
+
+    alert("Rapport vétérinaire ajouté avec succès !");
+    bootstrap.Modal.getInstance(
+      document.getElementById("RapportVeterinaireModal")
+    ).hide();
+  } catch (error) {
+    console.error("Erreur :", error);
+    alert("Erreur lors de l'ajout du rapport.");
+  }
+}
+
+async function getId(animalId) {
+  document.getElementById("editLastMealAnimalId").value = animalId;
+  document.getElementById("deleteAnimalId").value = animalId;
+  document.getElementById("rapportAnimalId").value = animalId;
 }
 
 loadHabitatDetails();
