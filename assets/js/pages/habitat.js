@@ -19,7 +19,6 @@ async function loadHabitatDetails() {
     const imageHabitat = habitat.imageName;
     const descriptionHabitat = habitat.description;
 
-    // Affichage du hero
     displayHabitatHero(nomHabitat, imageHabitat);
 
     displayDescription(descriptionHabitat);
@@ -137,7 +136,6 @@ async function loadAnimalsByHabitat(habitatId) {
   }
 }
 
-// Fonction pour récupérer les détails de l'animal et l'afficher dans la modale
 async function fetchAnimalDetails(animalId) {
   try {
     const response = await fetch(apiUrl + `animal/show/${animalId}`);
@@ -151,7 +149,6 @@ async function fetchAnimalDetails(animalId) {
     const animal = await response.json();
     console.log(animal);
 
-    // Affichage des détails de l'animal dans la modale
     document.getElementById("animalPrenom").innerText = animal.prenom;
     document.getElementById("animalRace").innerText = animal.race;
     document.getElementById("animalNourritureDernierRepas").innerText =
@@ -191,12 +188,10 @@ function openEditModal(habitat) {
   const imageInput = document.getElementById("editHabitatImage");
   const saveButton = document.getElementById("edit-habitat-submit");
 
-  // Remplissage des champs
   nomInput.value = habitat.nom || "";
   descriptionInput.value = habitat.description || "";
   imageInput.value = "";
 
-  // Ajouter un nouveau gestionnaire propre
   saveButton.addEventListener("click", async () => {
     if (!nomInput.value || !descriptionInput.value) {
       alert("Veuillez remplir tous les champs.");
@@ -227,7 +222,6 @@ function openEditModal(habitat) {
     }
   });
 
-  // Afficher la modale proprement
   new bootstrap.Modal(modalElement).show();
 }
 
@@ -245,12 +239,10 @@ async function fetchAnimalForEdit(animalId) {
 
     const animal = await response.json();
 
-    // Préremplir les champs du formulaire
     document.getElementById("editAnimalId").value = animal.id;
     document.getElementById("editPrenomAnimal").value = animal.prenom;
     document.getElementById("editRaceAnimal").value = animal.race;
 
-    // Afficher la modale
     const modal = new bootstrap.Modal(
       document.getElementById("EditionAnimalModal")
     );
@@ -290,12 +282,10 @@ async function editAnimal() {
 
     alert("Animal modifié avec succès !");
 
-    // Fermer la modale après modification
     bootstrap.Modal.getInstance(
       document.getElementById("EditionAnimalModal")
     ).hide();
 
-    // Recharger la liste des animaux
     loadHabitatDetails();
   } catch (error) {
     console.error("Erreur :", error);
@@ -418,12 +408,10 @@ async function editLastMeal() {
 
     alert("Dernier repas modifié avec succès !");
 
-    // Fermer la modale après modification
     bootstrap.Modal.getInstance(
       document.getElementById("EditionLastMealModal")
     ).hide();
 
-    // Recharger les détails de l'animal ou autre action si nécessaire
     loadHabitatDetails();
   } catch (error) {
     console.error("Erreur :", error);

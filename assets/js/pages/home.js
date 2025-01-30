@@ -27,7 +27,6 @@ async function displayHabitats() {
   }
 }
 
-// Fonction pour afficher les services dans le carousel
 async function displayServices() {
   const servicesContainer = document.getElementById("services");
   const data = await fetchData(
@@ -57,7 +56,6 @@ async function displayServices() {
   }
 }
 
-// Fonction pour afficher les animaux
 async function displayAnimals() {
   const animauxContainer = document.getElementById("animaux");
   const data = await fetchData(
@@ -87,7 +85,6 @@ async function displayAnimals() {
   }
 }
 
-// Fonction pour afficher les avis
 async function displayAvis() {
   const avisContainer = document.getElementById("avis");
   const data = await fetchData(
@@ -123,7 +120,6 @@ async function displayAvis() {
   }
 }
 
-// Fonction pour soumettre un avis
 async function submitAvis() {
   const pseudoInput = document.getElementById("pseudoAvisInput");
   const commentaireInput = document.getElementById("CommentaireAvisInput");
@@ -174,7 +170,6 @@ async function submitAvis() {
   });
 }
 
-// Appels des fonctions
 displayHabitats();
 displayServices();
 displayAnimals();

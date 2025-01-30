@@ -24,6 +24,7 @@ async function getInfosUser() {
     }
 
     const result = await response.json();
+    console.log("Résultat des données utilisateur :", result);
 
     return result;
   } catch (error) {
@@ -40,7 +41,7 @@ async function loadUserAccount() {
 
   if (!userData) {
     console.error("Aucune donnée utilisateur reçue.");
-    return;
+    return; 
   }
 
   const container = document.getElementById("account-container");

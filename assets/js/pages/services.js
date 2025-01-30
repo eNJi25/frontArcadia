@@ -1,5 +1,4 @@
 async function loadServices() {
-  console.log("Chargement des services...");
   try {
     const data = await fetchData(
       "https://arcadia2024.alwaysdata.net/arcadia/api/service/showAll"

@@ -1,7 +1,4 @@
-const apiUrl = "https://arcadia2024.alwaysdata.net/arcadia/api/";
-
 const token = getToken();
-console.log(token);
 
 function validatePassword(input) {
   const passwordRegex =
