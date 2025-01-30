@@ -1,14 +1,17 @@
 <div class="container-fluid m-0 p-0">
     <div id="hero-container"></div>
 </div>
+<div id="description-habitat"></div>
+<div id="btn-habitat"></div>
 
-<div class="container bg-success text-center py-3 my-3" data-show="connected">
-    <button class="btn btn-secondary m-2">Modifier l'habitat</button>
-    <button class="btn btn-danger">Supprimer l'habitat</button>
-</div>
 <div class="d-flex justify-content-center my-2">
     <h2 class="text-titre">Tous les animaux</h2>
 </div>
+<div class="container bg-success text-center py-3 my-3" data-show="connected">
+    <button class="btn btn-secondary m-2">Ajouter un animal</button>
+</div>
+
+
 <div class="container my-3">
     <div class="row" id="animals-container"></div>
 </div>
@@ -31,6 +34,38 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modale Modifier Habitat -->
+<div class="modal fade" id="EditHabitatModal" tabindex="-1" aria-labelledby="EditHabitatModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="EditHabitatModalLabel">Modifier l'Habitat</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editHabitatForm">
+                    <div class="mb-3">
+                        <label for="editHabitatNom" class="form-label">Nom de l'habitat</label>
+                        <input type="text" class="form-control" id="editHabitatNom" name="nom" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editHabitatDescription" class="form-label">Description</label>
+                        <textarea class="form-control" id="editHabitatDescription" name="description" rows="3"
+                            required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editHabitatImage" class="form-label">Image</label>
+                        <input type="file" class="form-control" id="editHabitatImage" name="imageFile">
+                    </div>
+                    <button type="button" id="edit-habitat-submit" class="btn btn-success">
+                        Enregistrer les modifications
+                    </button>
+                </form>
             </div>
         </div>
     </div>

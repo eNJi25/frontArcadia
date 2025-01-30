@@ -77,7 +77,6 @@ async function loadHabitats() {
 
       habitatDiv.appendChild(animalsDiv);
 
-      // Bouton pour voir tous les animaux de l'habitat
       const divButton = document.createElement("div");
       divButton.className = "d-flex justify-content-center w-100";
 
@@ -102,6 +101,59 @@ async function loadHabitats() {
     console.error(error);
   }
 }
+
+async function submitNewHabitat() {
+  const modal = document.getElementById("AjoutHabitatModal");
+
+  const nomInput = document.getElementById("nomHabitatInput").value.trim();
+  const descriptionInput = document
+    .getElementById("descriptionHabitatInput")
+    .value.trim();
+  const imageInput = document.getElementById("imageHabitat").files[0];
+
+  if (!nomInput || !descriptionInput || !imageInput) {
+    alert("Veuillez remplir tous les champs.");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("nom", nomInput);
+  formData.append("description", descriptionInput);
+  formData.append("imageFile", imageInput);
+
+  const token = getToken();
+
+  try {
+    const response = await fetch(
+      "https://arcadia2024.alwaysdata.net/arcadia/api/habitat/new",
+      {
+        method: "POST",
+        body: formData,
+        headers: {
+          "X-AUTH-TOKEN": token,
+        },
+      }
+    );
+
+    const responseData = await response.text();
+    console.log("Réponse brute de l'API :", responseData);
+
+    if (!response.ok) {
+      throw new Error(`Erreur API : ${responseData}`);
+    }
+
+    alert("Habitat créé avec succès !");
+    bootstrap.Modal.getInstance(modal).hide();
+    loadHabitats();
+  } catch (error) {
+    console.error("Erreur :", error);
+    alert("Une erreur est survenue lors de la création de l'habitat.");
+  }
+}
+
+document
+  .getElementById("ajout-habitat-submit")
+  .addEventListener("click", submitNewHabitat);
 
 // Charger les habitats lorsque la page est prête
 loadHabitats();

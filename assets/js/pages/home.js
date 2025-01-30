@@ -16,9 +16,7 @@ async function displayHabitats() {
       }">
           <div class="w-100 h-100 card-body position-absolute d-flex flex-column justify-content-between align-items-center">
             <h3 class="card-title text-color">${toUpperCase(habitat.nom)}</h3>
-            <a href="/arcadia/api/habitat/show/${
-              habitat.id
-            }" class="btn btn-secondary">Découvrir</a>
+            <a href="/habitats" class="btn btn-secondary">Découvrir</a>
           </div>
         </div>
       `;
@@ -78,9 +76,7 @@ async function displayAnimals() {
       }">
           <div class="w-100 h-100 card-body position-absolute d-flex flex-column justify-content-between align-items-center">
             <h3 class="card-title text-color">${toUpperCase(animal.prenom)}</h3>
-            <a href="/arcadia/api/animal/show/${
-              animal.id
-            }" class="btn btn-secondary">Découvrir</a>
+            <a href="/habitats" class="btn btn-secondary">Découvrir</a>
           </div>
         </div>
       `;
