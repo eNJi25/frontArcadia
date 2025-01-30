@@ -21,7 +21,7 @@ async function fetchData(url) {
 
 const tokenCookieName = "accesstoken";
 const RoleCookieName = "role";
-const UserId = "id"
+const User = "id";
 
 const signoutBtn = document.getElementById("signoutBtn");
 signoutBtn.addEventListener("click", signout);
@@ -29,7 +29,7 @@ signoutBtn.addEventListener("click", signout);
 function signout() {
   eraseCookie(tokenCookieName);
   eraseCookie(RoleCookieName);
-  eraseCookie(UserId);
+  eraseCookie(User);
   window.location.reload();
 }
 
@@ -46,7 +46,7 @@ function getRole() {
 }
 
 function getId() {
-  return getCookie(UserId);
+  return getCookie(User);
 }
 
 function setCookie(name, value, days) {

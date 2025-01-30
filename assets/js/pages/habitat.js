@@ -450,7 +450,7 @@ async function addVeterinaryReport() {
 
   const formData = new URLSearchParams();
   formData.append("animal", animalId);
-  formData.append("user", getCookie(RoleId));
+  formData.append("user", getCookie(User));
   formData.append("etat_animal", etatAnimal);
   if (nourriturePropose)
     formData.append("nourriture_propose", nourriturePropose);
