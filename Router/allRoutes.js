@@ -45,6 +45,11 @@ export const allRoutes = [
     "pages/habitat.html",
     "assets/js/pages/habitat.js"
   ),
+  new Route(
+    "/contact",
+    "Contact",
+    "pages/contact.html"
+  ),
 ];
 
 export const websiteName = "Arcadia";
